@@ -13,4 +13,4 @@ TODO:
 2. Fix Output.mp3 twiml error
 3. Fix format code so number can be entered in any format
 4. Upload to cloud service for deployment
-5. MAke sure it can handle multiple user at once. ( Probably can't do this at the moment)
+5. Make sure it can handle multiple user at once. ( Probably can't do this at the moment)
