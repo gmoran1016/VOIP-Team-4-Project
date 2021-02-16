@@ -1,21 +1,17 @@
-from flask import Flask, request, redirect
+from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
-from twilio.twiml.voice_response import Play, VoiceResponse
 from twilio.rest import Client
 from gtts import gTTS
 
 app = Flask(__name__)
 
-
-# Some Flask thing? IDK
-@app.route("/sms", methods=['GET', 'POST'])
-
 """
 CURRENT STATUS:
 
-Program needs to wait for both the number and message to be received before calling start. This doesnt work currently.
-Currently will take any message sent to the number and convert it to a number and try to call it which doesnt work unless the message you send is a phone number.
-At which point it will just change the phone number to speech call successfully and then fail to read output.mp3.
+Program needs to wait for both the number and message to be received before calling start. This doesnt work 
+currently. Currently will take any message sent to the number and convert it to a number and try to call it which 
+doesnt work unless the message you send is a phone number. At which point it will just change the phone number to 
+speech call successfully and then fail to read output.mp3. 
 
 TODO:
 1. Get Inputs Working correctly
@@ -25,6 +21,9 @@ TODO:
 5. Make sure it can handle multiple user at once. ( Probably can't do this at the moment)
 """
 
+
+# Some Flask thing? IDK
+@app.route("/sms", methods=['GET', 'POST'])
 # gets incoming SMS and does the main stuff, Doesn't work fully yet
 def incoming_sms():
     # Get the message the user sent our Twilio number
@@ -33,7 +32,7 @@ def incoming_sms():
     # Start our TwiML response
     resp = MessagingResponse()
     print(body)
-    # supposed to send a text asking for number when any message is recived.
+    # supposed to send a text asking for number when any message is received.
     resp.message("Enter Target Phone number in format +15554443333")
     # old number syntax can probably remove
     number = body.removeprefix('number: ')
