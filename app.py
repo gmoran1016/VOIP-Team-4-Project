@@ -24,26 +24,34 @@ TODO:
 
 # Some Flask thing? IDK
 @app.route("/sms", methods=['GET', 'POST'])
-# gets incoming SMS and does the main stuff, Doesn't work fully yet
-def incoming_sms():
-    # Get the message the user sent our Twilio number
-    body = request.values.get('Body', None)
-
-    # Start our TwiML response
+def bot():
+    incoming_msg = request.values.get('Body', '').lower()
     resp = MessagingResponse()
-    print(body)
-    # supposed to send a text asking for number when any message is received.
-    resp.message("Enter Target Phone number in format +15554443333")
-    # old number syntax can probably remove
-    number = body.removeprefix('number: ')
-    # Supposed to then send a text prompting for the message.
-    resp.message("Please enter the message to be converted")
-    # old Message syntax can probably remove
-    message = body.removeprefix('message: ')
+    msg = resp.message()
+    number = "default number"
 
-    # resp.message("calling {}... ".format(number))
-    start(number, message)
+    responded = False
+    if '+1' in incoming_msg:
+        # return a quote
+        number = incoming_msg
+        msg.body('Enter your Message')
+        responded = True
+    if 'start' in incoming_msg:
+        # return a cat pic
+        msg.body(first())
+        responded = True
+    if 'message' in incoming_msg:
+        message = incoming_msg
+        start(number, message)
+    if not responded:
+        resp = msg.body('I only know about famous quotes and cats, sorry!')
+
     return str(resp)
+
+
+def first():
+    x = "Please Enter a number "
+    return str(x)
 
 
 # supposed to call everything? IDK
