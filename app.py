@@ -21,43 +21,40 @@ TODO:
 5. Make sure it can handle multiple user at once. ( Probably can't do this at the moment)
 """
 
-
 # Some Flask thing? IDK
 @app.route("/sms", methods=['GET', 'POST'])
 def bot():
+    #Twilio Message Stuff
     incoming_msg = request.values.get('Body', '').lower()
     resp = MessagingResponse()
     msg = resp.message()
-    number = "default number"
+    
+    #Convert number to correct format to pass to twilio
+    numberResp = "'"+incoming_msg+"'"
+    
+    #variable
+    i =0
+    number = ''
+    message =''
+    #Checks for the /s to start the program by asking for the number. Should increment through steps but currently doesnt
+    if '/s' in incoming_msg:
+        msg.body('Please enter a number in +15554443333 format:')
+        print(resp)
+        if '+1' in numberResp:
+            number = numberResp
+            print('number')
+            msg.body('Please type /m then enter you message')
+            
+        elif '/m' in incoming_msg:
+            message = incoming_msg
+            print(message)
+            call(number,message)
+                
 
-    responded = False
-    if '+1' in incoming_msg:
-        # return a quote
-        number = incoming_msg
-        msg.body('Enter your Message')
-        responded = True
-    if 'start' in incoming_msg:
-        # return a cat pic
-        msg.body(first())
-        responded = True
-    if 'message' in incoming_msg:
-        message = incoming_msg
-        start(number, message)
-    if not responded:
-        resp = msg.body('I only know about famous quotes and cats, sorry!')
+    else:
+        msg.body('Please Begin by sending /s')
 
     return str(resp)
-
-
-def first():
-    x = "Please Enter a number "
-    return str(x)
-
-
-# supposed to call everything? IDK
-def start(number, message):
-    tts(message)
-    call(number)
 
 
 # Does the TTS Magic and saves as output.mp3 in root folder
@@ -69,7 +66,7 @@ def tts(message):
 
 
 # Does the calling
-def call(number):
+def call(number,message):
     # Your Account Sid and Auth Token from twilio.com/console
     # and set the environment variables. See http://twil.io/secure
     account_sid = 'AC75647f28d69ea248afba7325fc554d01'
@@ -77,12 +74,14 @@ def call(number):
     client = Client(account_sid, auth_token)
     print(number)
     # makes sure number has US Code at beginning. Need to make this better in case of formatting issues
+    #Redundant Currently
     if '+1' not in number:
         number = "+1" + number
     # Creates the call client and twiml needed to call via Twilio
+    print('call time'+' '+number+' '+message)
     call = client.calls.create(
         twiml='<Response>'
-              '<Play>output.mp3</play>'
+              '<Say>'+message+'</Say>'
               '</Response>',
         to=number,
         from_='+18283927597'
@@ -92,4 +91,4 @@ def call(number):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
