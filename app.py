@@ -47,7 +47,7 @@ def bot():
             
     elif '/m' in incoming_msg:
         storeMessage(incoming_msg)
-        call()       
+        tts()      
     else:
         msg.body('Please Begin by sending /s')
 
@@ -73,6 +73,8 @@ def tts(message):
 
     output = gTTS(text=message, lang=language, slow=False)
     output.save("files/output.mp3")
+    print("TTS Success")
+    call()
 
 
 # Does the calling
