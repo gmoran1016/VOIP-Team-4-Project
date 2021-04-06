@@ -71,7 +71,7 @@ def storeMessage(message):
 def tts():
     language = 'en'
 
-    output = gTTS(text=storeMessage.messageResp, lang=language, slow=False)
+    output = gTTS(text=storeMessage.messageResp, lang=language, slow=False, tld='com.ie')
     output.save("files/output.mp3")
     print("TTS Success")
     call()
