@@ -68,10 +68,10 @@ def storeMessage(message):
     
     
 # Does the TTS Magic and saves as output.mp3 in root folder
-def tts(message):
+def tts():
     language = 'en'
 
-    output = gTTS(text=message, lang=language, slow=False)
+    output = gTTS(text=storeMessage.messageResp, lang=language, slow=False)
     output.save("files/output.mp3")
     print("TTS Success")
     call()
