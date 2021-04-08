@@ -33,7 +33,7 @@ def bot():
     #Convert number to correct format to pass to twilio
     
     #variable
-    i =0
+    i = 0
     
     
     #Checks for the /s to start the program by asking for the number. Should increment through steps but currently doesnt
