@@ -40,10 +40,15 @@ def bot():
     if '/s' in incoming_msg:
         msg.body('Please enter a number in +15554443333 format:')
         print(resp)
-    elif '+1' in incoming_msg:
-        
-        storeNumber(incoming_msg)
-        msg.body('Please type /m then enter you message')
+    elif '+1' in incoming_msg or len(incoming_msg) == 10 :
+        if len(incoming_msg) == 10:
+            fixed = '+1'+incoming_msg
+            print(fixed)
+            storeNumber(fixed)
+            msg.body('Please type /m then enter you message')
+        else:    
+            storeNumber(incoming_msg)
+            msg.body('Please type /m then enter you message')
             
     elif '/m' in incoming_msg:
         storeMessage(incoming_msg)
