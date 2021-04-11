@@ -103,4 +103,4 @@ def call():
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=8008, debug=False)
+    app.run(port=8008, debug=False)
