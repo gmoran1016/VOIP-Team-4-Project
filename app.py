@@ -93,7 +93,7 @@ def call():
     print('call time'+' '+storeNumber.numberResp+' '+storeMessage.messageResp)
     call = client.calls.create(
         twiml='<Response>'
-              '<Play>http://voipfile.luthien.me:8080/output.mp3</Play>'
+              '<Play>http://http://3.138.194.186:8000/output.mp3</Play>'
               '</Response>',
         to=storeNumber.numberResp,
         from_='+18283927597'
