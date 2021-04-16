@@ -135,8 +135,8 @@ def tts():
 def call():
     # Your Account Sid and Auth Token from twilio.com/console
     # and set the environment variables. See http://twil.io/secure
-    account_sid = 'AC75647f28d69ea248afba7325fc554d01'
-    auth_token = '0f7ca9a3e08adc10008de9151089f653'
+    account_sid = ''
+    auth_token = ''
     client = Client(account_sid, auth_token)
     
     # makes sure number has US Code at beginning. Need to make this better in case of formatting issues
